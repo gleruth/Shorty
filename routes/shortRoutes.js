@@ -15,7 +15,7 @@ module.exports = app => {
     const { longLink } = req.body;
 
     const existingLink = await Link.find({ longLink: longLink });
-    if (existingLink) {
+    if (existingLink.length >= 1) {
       try {
         const updatedLink = await Link.findOneAndUpdate(
           { longLink: longLink },
