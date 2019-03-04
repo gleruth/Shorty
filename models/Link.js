@@ -3,6 +3,7 @@ const { Schema } = mongoose;
 
 const linkSchema = new Schema({
   longLink: String,
+  shortLinkId: String,
   dateCreated: Date
 });
 

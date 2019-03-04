@@ -13,10 +13,10 @@ class App extends Component {
 
   renderShortRoutes() {
     return this.props.links.map(link => {
-      const shortPath = "/" + link._id;
+      const shortPath = "/" + link.shortLinkId;
       return (
         <Route
-          key={link._id}
+          key={link.shortLinkId}
           path={shortPath}
           component={() => {
             const longLink = link.longLink;

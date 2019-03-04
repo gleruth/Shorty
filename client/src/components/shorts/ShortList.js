@@ -9,11 +9,15 @@ class ShortList extends Component {
   }
 
   renderLinks() {
-    return this.props.links.map(link => {
+    return this.props.links.slice(0, 5).map(link => {
       return (
-        <div className="collection" key={link._id}>
-          <Link to={link._id} className="collection-item" target="_blank">
-            {window.location.host + "/" + link._id}
+        <div className="collection" key={link.shortLinkId}>
+          <Link
+            to={link.shortLinkId}
+            className="collection-item"
+            target="_blank"
+          >
+            {window.location.host + "/" + link.shortLinkId}
           </Link>
         </div>
       );

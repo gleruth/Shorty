@@ -6,13 +6,16 @@ module.exports = app => {
   app.get("/api/shorten", async (req, res) => {
     const links = await Link.find()
       .sort({ dateCreated: "descending" })
-      .limit(5);
+      .limit(5000);
 
     res.send(links);
   });
 
   app.post("/api/shorten", async (req, res) => {
-    const { longLink } = req.body;
+    let { longLink } = req.body;
+    if (!/^https?:\/\//i.test(longLink)) {
+      longLink = "http://" + longLink;
+    }
 
     const existingLink = await Link.find({ longLink: longLink });
     if (existingLink.length >= 1) {
@@ -26,8 +29,12 @@ module.exports = app => {
         res.status(422).send(err);
       }
     } else {
+      const shortLinkId = Math.random()
+        .toString(36)
+        .substring(2, 8);
       const link = new Link({
         longLink,
+        shortLinkId,
         dateCreated: Date.now()
       });
 
